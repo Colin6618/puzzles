@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Puzzle log</title>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>给javascript添加PHP的shuffle功能</h1>
+			<h2>more info in console</h2>
+		</hgroup>
+	</header>
+	<script type="text/javascript">
+//非侵入性方法
+		var s = [123,3,5,4,34,67];
+		var shuffle = function(s) {
+			//要是没有提供参数，形参中的s相当于在函数内的声明：vas s; s是undefined
+			var s = s || [];
+			var shuffledArr = [];
+				while(s.length > 0){
+					var index = Math.floor(Math.random()*s.length);
+					shuffledArr.push(s.splice(index, 1)[0]);
+					// console.log(index, shuffledArr);
+			}
+			return shuffledArr;
+		};
+		console.log(shuffle(s));
+
+
+//类方法
+		
+		Array.prototype.shuffle = function(){ 
+			return this.sort(
+				function(){
+					return Math.round(Math.random())>0.5?1:-1;
+				});
+		};
+		var ar = new Array();
+		ar.push(623);
+		ar.push(3);
+		ar.push(56);
+		ar.push(14);
+		ar.push(7);
+		ar.push(4);
+		var arr = ar.shuffle();
+		console.log(arr);
+		
+	</script>
+</body>
+</html>
