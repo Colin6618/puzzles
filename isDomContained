@@ -1,0 +1,19 @@
+
+isDomContained(B,A)
+if B contains A,return true.otherwise return false.
+e.g. 
+<div id="B">
+  <div></div>
+  <div>
+    <div class="A"></div>
+  </div>
+</div>
+
+in the case above, the function would return true.
+
+<div class="B"></div>
+<div class="A"></div>
+
+in this case, false is expecting.
+
+
