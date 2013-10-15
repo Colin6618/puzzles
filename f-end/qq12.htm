@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>绑定元素和浏览器判断</title>
+</head>
+<body>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<script type="text/javascript">
+	//绑定元素和浏览器判断
+		(function(dmt){
+			var i = 0,
+				isIE = /*@cc_on!@*/false;
+				isIE2 = '\v'=='v';
+				alist = dmt.getElementsByTagName('a');
+				// alert(isIE2);
+				for(i=0; i<alist.length; i++){
+					alist[i].ii = i;
+						alist[i].onclick = function(){
+							alert(this.ii);
+						};
+						// if(isIE){
+						// 	alist[i].attachEvent('click', function(){alert(temp)});
+						// }
+						// else{
+						// 	alist[i].addEventListener('click', function(){alert(temp)}, false);
+						// }
+				}
+		})(document);
+	</script>
+</body>
+</html>

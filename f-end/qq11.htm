@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包</title>
+</head>
+<body>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<a href="" class="cmd">click it!</a>
+	<script type="text/javascript">
+	//闭包
+		(function(dmt){
+			var i = 0,
+				isIE = /*@cc_on!@*/false;
+				isIE2 = '\v'=='v';
+				alist = dmt.getElementsByTagName('a');
+				// alert(isIE2);
+			 // for(i=0; i< alist.length; i++){
+			 // 	alist[i].addEventListener('click', function(){alert(i)}, false)
+			 // }
+
+			// (function bindhandler(){
+				for(i=0; i<alist.length; i++){
+					(function(){
+						alist[i].onclick = function(){
+							alert(temp);
+						};
+						var temp = i;
+						// if(isIE){
+						// 	alist[i].attachEvent('click', function(){alert(temp)});
+						// }
+						// else{
+						// 	alist[i].addEventListener('click', function(){alert(temp)}, false);
+						// }
+					}());
+				} 	
+			// }());
+			
+
+		})(document);
+	</script>
+</body>
+</html>

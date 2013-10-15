@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+html,body{margin:0; height:100%;}
+#main{height:auto !important; min-height:100%; margin:0; background:#ffe6b8;}
+#right{width:200px; height:100%; background:#a0b3d6;}
+#right{float:right;}
+
+</style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div id="right"></div>
+<div id="main">简单的装饰者模式</div>
+	<script>
+		function Pad(){
+			
+			this.cost = function(){
+				return 200;
+			};
+		}
+
+		function addMemory(pad){
+			this.cost = function(){
+				return pad.cost() + 20;
+			};
+		}
+
+		function addInsurance(pad){
+			this.cost = function(){
+				return pad.cost() + 25;
+			}
+		}
+
+		var buy = new addInsurance(new addMemory(new Pad()));
+		// alert(buy.cost());
+	</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>继承，深度克隆和设计模式</title>
+</head>
+<body>
+	<h2>继承，深度克隆和设计模式</h2>
+	<script>
+//封装
+		var _pack = function(){
+			var name = 'hyz';
+			var method1 = function(){
+				alert(123);
+			}
+
+			this.title = 'javascript patterns';
+
+			_pack._name = 'colin';
+			_pack.show  = function(){
+				alert(_pack._name);
+			}
+
+			_pack.prototype = {
+				init: function(){
+					//...
+				}
+			}
+		}
+
+		//继承
+		/*类式继承: 使用构造函数设置原型链*/
+		var inherit = function(child, p){
+			child.prototype = new p();
+			child.prototype.constructor = child;
+		};
+		//临时构造函数，用作获取父对象原型的代理
+		var inherit = function(){
+			var F = function(){};
+			return function(C,P){
+				F.prototype = P.prototype;
+				C.prototype = new F();
+				C.uber = P.prototype;
+				C.prototype.constructor = C;
+			}
+		};
+
+		/*原型继承:无类式*/
+		var child = Object.create(parent);
+		var child2 = Object.create(parent, {
+			age:{value:2}
+		});
+
+		//通过复制属性实现继承，浅复制，深复制
+		var extendDeep = function(child, parent){
+			var tostr = Object.prototype.toString,
+				oarray = "[object Array]",
+				i;
+			child = child || {};
+			for(i in parent){
+				if(parent.hasOwnProperty(i)){
+					if(typeof parent[i] === "object"){
+						child[i] = (tostr.call(parent[i]) === oarray)?[]:{};
+						extendDeep(child[i],parent[i]);
+					}
+				} else {
+					child[i] = parent[i];
+				}
+			}
+		}
+
+
+		//装饰者模式 这个模式就是为对象增加功能(或方法)。动态地给一个对象添加一些额外的工作
+		function Pad(){
+			this.cost = function(){
+				return 200;
+			};
+		}
+
+		function addMemory(apad){
+			this.cost = function(){
+				return apad.cost() + 20;
+			};
+		}
+
+		function addInsurance(apad){
+			this.cost = function(){
+				return apad.cost() + 25;
+			}
+		}
+
+		var mee = new addInsurance(new addMemory(new Pad()));
+		console.log("decorators" + mee.cost());
+
+		//单例模式 它用来划分命名空间
+		var hyzTools = {
+			name: 'hyz',
+			gun: function(){
+				return "watergun";
+			},
+			show: function(){
+				return "haha";
+			}
+		}
+
+		//工场模式 把实例化的代码都集中在一起，看不见各种new具体类了
+		var XMLHttpFactory = function(){};
+		XMLHttpFactory.createXHP = function(){
+			var XHP = {};
+			if(window.XMLHtppRequest){
+				XHP = new XMLHttpRequest();
+			}else if (window.ActiveXObject){
+				XHP = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			return XHP;
+		}
+
+		//桥接模式
+		var ele;
+		ele.onclick =function(){　　//API可控制性提高了，使得这个API更加健壮
+   　　		new someFunction(element,param,callback);
+ 　　	}
+
+
+ 		// 门面模式 门面模式是几乎所有JavaScript库的核心原则 　门面模式的两个作用：1.简化类的接口；2.类与使用它的客户代码之间的耦合。
+ 		var addEvent = function(el, type, fn){
+ 			if(window.addEventListener)
+ 				el.addEventListener(type, fn);
+ 			else if (window.attachEvent){
+ 				el.attachEvent('on' + type, fn);
+ 			}else{
+ 				el['on' + type] = fn;
+ 			}
+ 		}
+
+ 		// 适配器模式  它和门面模式有点相似，差别在于它们如何改变接口，门面模式展现的是一个简化的接口，它并不提供额外的选择，而适配器模式则要把一个接口转换为另一个接口，将一个类的接口转换成客户希望的另外一个接口。用于提高兼容性。
+ 		var requestObject = {
+ 			str1: "nosql",
+ 			str2: "noIOE",
+ 			str3: "noGoogle"
+ 		}
+ 		function interfaceMethod(str1,str2,str3){
+ 			alert("123");
+ 		}
+ 		//适配器函数 
+ 		function adaperMethod(rob){
+ 			interfaceMethod(rob.str1, rob.str2, rob.str3);
+ 		}
+
+ 		//享元（Flyweight）模式：运用共享技术有效地支持大量细粒度的对象。享元模式可以避免大量非常相似类的开销
+ 		// 代理（Proxy）模式：此模式最基本的形式是对访问进行控制,这个原则可以为我们节省很多内存.
+ 		/*观察者（Observer）模式 	观察者模式中存在两个角色,观察者和被观察者。在DOM的编程环境中的高级事件模式中，事件监听器说到底就是一种内置的观察者。
+ 		addEvent(element,'click',fn1)；
+  　　  addEvent(element,'click',fn2)*/
+
+  		/*命令（Command）模式：将一个请求封装为一个对象,从而使你可用不同的请求对客户进行参数化；
+  		car Calculator={       　　
+  			add:function(x,y){
+        　　  return x+y;
+       　　},
+       　　substract:function(x,y){
+        　　  return x-y;
+      　　},
+      　　multiply:function(x,y){
+        　　  return x*y;
+      　　},
+       　　divide:function(x,y){
+        　　  return x/y;
+       　　}
+    　　}
+    　　Calculator.calc =function(command){
+       　　return Calculator[command.type](command.op1,command.opd2)
+    　　};
+    　　Calculator.calc({type:'add',op1:1,op2:1});
+    　　Calculator.calc({type:'substract',op1:5,op2:2});
+    　　Calculator.calc({type:'multiply',op1:5,op2:2});
+    　　Calculator.calc({type:'divide',op1:8,op2:4});*/
+	</script>
+</body>
+</html>
