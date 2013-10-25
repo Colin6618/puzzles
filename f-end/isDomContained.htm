@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+	textarea{width:500px;height:200px;}
+</style>
+</head>
+<body>
+	<div id="B">
+			<div>
+			</div>
+			<div>
+				<div id="A">
+				</div>
+			</div>
+	</div>
+
+	<div id="BB">
+		</div>
+		<div id="AA">
+		</div>
+<article>
+		<p>isDomContained(B,A)
+		if B contains A,return true.otherwise return false.
+		e.g.</p> 
+	<textarea>
+		<div id="B">
+			<div>
+			</div>
+			<div>
+				<div id="A">
+				</div>
+			</div>
+		</div>
+	</textarea>
+		<p>in the case above, the function would return true.</p>
+	<textarea>
+		<div id="BB">
+		</div>
+		<div id="AA">
+		</div>
+	</textarea>
+		<p>in this case, false is expecting.</p>
+</article>
+<script>
+// B是否包含A
+	function isDomContained(B,A){
+		var body = document.body;
+
+		if(A==undefined)	return undefined;
+		var temp = A;
+		while(temp !== body){
+			if(temp === B) 
+				return true;
+			else {
+				temp = temp.parentNode;
+			}
+		}
+		return false;
+	}
+
+// Test
+	console.log(isDomContained(document.getElementById('BB'), document.getElementById('AA')));
+	console.log(isDomContained(document.getElementById('B'), document.getElementById('A')));
+	console.log(isDomContained(document.getElementById('B'), document.getElementById('AA')));
+	console.log(isDomContained(document.getElementById('BB'), document.getElementById('A')));
+
+	console.log(isDomContained(document.getElementById('BB')));
+
+	console.log(isDomContained());
+</script>
+</body>
+</html>
