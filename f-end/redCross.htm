@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>redcross</title>
+	<style>
+		.s1,.s2,.s3,.s4,.s5{background-color: red;}
+		#d2 .s1{height:150px;width:50px;margin:0px 0px 0px 50px;}
+		#d2 .s2{height:50px;width:150px;position: relative;top: -100px;}
+
+		#d3 .s1,#d3 .s3{height:50px;width:50px;margin:0px 0px 0px 50px;}
+		#d3 .s2{height:50px;width:150px;margin:0;}
+
+		#d5 .s1,#d5 .s2,#d5 .s3,#d5 .s4,#d5 .s5{width:50px;height:50px;position: absolute;}
+		#d5 .s1{margin-left:50px;}
+		#d5 .s2{margin-top:50px;}
+		#d5 .s3{margin-top:50px;margin-left:50px;}
+		#d5 .s4{margin-top:50px;margin-left:100px;}
+		#d5 .s5{margin-top:100px;margin-left:50px;}
+	</style>
+</head>
+
+<body>
+	<h1>使用重构的方式制作出一个如下图的水平、垂直都居中短边为50px，长边为150px的红色十字架。</h1>
+	<h2>要求：
+
+		1.使用2个div完成
+
+		2.使用3个div完成
+
+		3.使用5个div完成
+	</h2>
+	<img src="./src/img/redcross.peg" alt="redcross">
+	<div id="d2">
+		with 2div
+		<div class="s1"></div>
+		<div class="s2"></div>
+	</div>
+	<div id='d3'>
+		with 3div
+		<div class="s1"></div>
+		<div class="s2"></div>
+		<div class="s3"></div>
+	</div>
+	<div id='d5'>
+		with 5div
+		<div class="s1"></div>
+		<div class="s2"></div>
+		<div class="s3"></div>	
+		<div class="s4"></div>
+		<div class="s5"></div>
+	</div>
+</body>
+</html>
