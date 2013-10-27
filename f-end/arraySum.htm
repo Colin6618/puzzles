@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>arraySum</title>
+</head>
+<body>
+	<script>
+	function arraySum(i) {
+	    
+	    // i will be an array, containing integers, strings and/or arrays like itself.
+	    // Sum all the integers you find, anywhere in the nest of arrays.
+	    
+	    var sumobj = arguments[1] || {
+	        sum: 0
+	    };
+	    var toString = Object.prototype.toString;
+	    for(var index = 0 ; index<i.length; index++){
+	        if(toString.call(i[index]) === '[object Array]'){
+	        	arraySum(i[index], sumobj);
+	        }
+	        else if(toString.call(i[index]) === '[object Number]'){
+	        	sumobj.sum += i[index];
+	        }
+
+	    }
+	    return sumobj.sum;
+	}
+
+	console.log("Test1:" + arraySum([1,2,3,4,5]));
+	console.log("Test2:" + arraySum([1,2,[[[[[[3]]]]]],4,[[4,1]]]));
+	</script>
+</body>
+</html>
