@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>isDomContained</title>
+<style>
+	textarea{width:500px;height:200px;}
+</style>
+</head>
+<body>
+	
+<script>
+/*
+单例的基本结构
+MyNamespace.Singleton = function() {
+	return {};
+}();
+*/
+
+//一个经典的单例模式实现
+Mynamespace.singleton = (function(){
+
+	var uniqueInstace;
+	function constructor(){
+
+	}
+	return 
+	{
+		getInstance: function(){//延迟加载
+			if(!uniqueInstace){
+				uniqueInstace = constructor();
+			}
+			return uniqueInstace;
+		}
+	}
+})();
+</script>
+</body>
+</html>
